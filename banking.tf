@@ -125,20 +125,14 @@ resource "aws_eip" "proj-eip" {
 
 
 # Creating an ubuntu EC2 instance
-resource "aws_instance" "Prod-Server" {
-  ami = "ami-0ef82eeba2c7a0eeb"
-  instance_type = "t2.micro"
-  availability_zone = "ap-south-1b"  # Use the correct availability zone here
-  key_name = "bankingkeypair"
-  network_interface {
-    device_index = 0
-    network_interface_id = aws_network_interface.proj-ni.id
-  }
-  user_data  = <<-EOF
-    #!/bin/bash
-    sudo apt-get update -y
-  EOF
+resource "aws_instance" "prod-server" {
+  ami                    = "ami-0a0e5d9c7acc336f1"
+  instance_type          = "t2.micro"
+  key_name               = "newkeypair"
+  vpc_security_group_ids = [var.security_group_id]
+  subnet_id              = element(data.aws_subnets.default.ids, 5)
+
   tags = {
-    Name = "Prod-Server"
+    Name = "Monitoring-project"
   }
 }
