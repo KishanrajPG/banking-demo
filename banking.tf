@@ -133,7 +133,7 @@ resource "aws_eip" "proj-eip" {
 # Creating an ubuntu EC2 instance in us-east-1a
 resource "aws_instance" "Prod-Server" {
   ami                  = "ami-0a0e5d9c7acc336f1"  # Ubuntu AMI ID for us-east-1
-  instance_type        = "t2.micro"
+  instance_type        = "t2.medium"
   availability_zone    = "us-east-1a"
   key_name             = "newkeypair"  # Replace with your actual key pair name
   network_interface {
